@@ -23,8 +23,8 @@ public interface Board {
 
     boolean executeMove(PlayerSign player, Point point);
 
-    int getHight();
+    int getHEIGHT();
 
-    int getWidth();
+    int getWIDTH();
 
 }

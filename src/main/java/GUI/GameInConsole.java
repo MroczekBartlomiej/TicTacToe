@@ -10,7 +10,7 @@ import java.util.Scanner;
  * @author Bartlomiej Mroczek
  */
 public class GameInConsole {
-    Board board;
+    private Board board;
 
     public GameInConsole(){
         initialBoard();
@@ -43,7 +43,7 @@ public class GameInConsole {
             if (board.getEmptyPoints().isEmpty()){
                 System.out.println("DRAW!");
             }else if (board.hasOWon()){
-                System.out.println("Unfortunatly you LOST!");
+                System.out.println("Unfortunately you LOST!");
             }else if (board.hasXWon()){
                 System.out.println("Congratulation, you WIN!");
             }
