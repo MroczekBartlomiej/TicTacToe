@@ -7,5 +7,5 @@ import boards.Point;
  */
 public interface Player {
 
-    public boolean move(Point point);
+    boolean move(Point point);
 }

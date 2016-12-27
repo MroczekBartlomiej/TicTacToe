@@ -14,8 +14,8 @@ public class BoardDisplayInConsole implements BoardDisplay {
 
     public BoardDisplayInConsole(Board board) {
         this.board = board;
-        hight = board.getHight();
-        width = board.getWidth();
+        hight = board.getHEIGHT();
+        width = board.getWIDTH();
     }
 
     @Override

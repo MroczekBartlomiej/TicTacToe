@@ -11,21 +11,22 @@ import players.PlayerSign;
  * @author Bartlomiej Mroczek
  */
 public class SmallBoard implements Board {
-    private final int hight = 3;
-    private final int width = 3;
-    private static char board[][];
+    private final int HEIGHT = 3;
+    private final int WIDTH = 3;
+    private static char BOARD[][];
+    private List<Point> emptyPoints;
 
     public SmallBoard() {
-        board = new char[hight][width];
-        for (int i = 0; i < hight; i++) {
-            for (int j = 0; j < width; j++) {
-                board[i][j] = '-';
+        BOARD = new char[HEIGHT][WIDTH];
+        for (int i = 0; i < HEIGHT; i++) {
+            for (int j = 0; j < WIDTH; j++) {
+                BOARD[i][j] = '-';
             }
         }
     }
 
     private boolean isCorrect(Point point) {
-        return board[point.x][point.y] == '-';
+        return BOARD[point.getX()][point.getY()] == '-';
     }
 
     public boolean isGameOver() {
@@ -33,13 +34,13 @@ public class SmallBoard implements Board {
     }
 
     public boolean hasXWon() {
-        if ((board[0][0] == board[1][1] && board[0][0] == board[2][2] && board[0][0] == 'X') || (board[0][2] == board[1][1] && board[0][2] == board[2][0] && board[0][2] == 'X')) {
+        if ((BOARD[0][0] == BOARD[1][1] && BOARD[0][0] == BOARD[2][2] && BOARD[0][0] == 'X') ||
+                (BOARD[0][2] == BOARD[1][1] && BOARD[0][2] == BOARD[2][0] && BOARD[0][2] == 'X')) {
             return true;
         }
         for (int i = 0; i < 3; ++i) {
-            if (((board[i][0] == board[i][1] && board[i][0] == board[i][2] && board[i][0] == 'X')
-                    || (board[0][i] == board[1][i] && board[0][i] == board[2][i] && board[0][i] == 'X'))) {
-
+            if (((BOARD[i][0] == BOARD[i][1] && BOARD[i][0] == BOARD[i][2] && BOARD[i][0] == 'X')
+                    || (BOARD[0][i] == BOARD[1][i] && BOARD[0][i] == BOARD[2][i] && BOARD[0][i] == 'X'))) {
                 return true;
             }
         }
@@ -47,26 +48,27 @@ public class SmallBoard implements Board {
     }
 
     public boolean hasOWon() {
-        if ((board[0][0] == board[1][1] && board[0][0] == board[2][2] && board[0][0] == 'O') || (board[0][2] == board[1][1] && board[0][2] == board[2][0] && board[0][2] == 'O')) {
+        if ((BOARD[0][0] == BOARD[1][1] && BOARD[0][0] == BOARD[2][2] && BOARD[0][0] == 'O') ||
+                (BOARD[0][2] == BOARD[1][1] && BOARD[0][2] == BOARD[2][0] && BOARD[0][2] == 'O')) {
             return true;
         }
         for (int i = 0; i < 3; ++i) {
-            if ((board[i][0] == board[i][1] && board[i][0] == board[i][2] && board[i][0] == 'O')
-                    || (board[0][i] == board[1][i] && board[0][i] == board[2][i] && board[0][i] == 'O')) {
+            if ((BOARD[i][0] == BOARD[i][1] && BOARD[i][0] == BOARD[i][2] && BOARD[i][0] == 'O')
+                    || (BOARD[0][i] == BOARD[1][i] && BOARD[0][i] == BOARD[2][i] && BOARD[0][i] == 'O')) {
                 return true;
             }
         }
         return false;
     }
 
-    List<Point> emptyPoints;
+
 
     @Override
     public List<Point> getEmptyPoints() {
         emptyPoints = new ArrayList<>();
-        for (int i = 0; i < hight; i++) {
-            for (int j = 0; j < width; j++) {
-                if (board[i][j] == '-') {
+        for (int i = 0; i < HEIGHT; i++) {
+            for (int j = 0; j < WIDTH; j++) {
+                if (BOARD[i][j] == '-') {
                     emptyPoints.add(new Point(i, j));
                 }
             }
@@ -76,25 +78,23 @@ public class SmallBoard implements Board {
 
     public boolean executeMove(PlayerSign player, Point point) {
         if (isCorrect(point)) {
-            board[point.x][point.y] = player.getSign();
+            BOARD[point.getX()][point.getY()] = player.getSign();
             return true;
         }
         return false;
     }
 
-    @Override
-    public int getHight() {
-        return hight;
+    public int getHEIGHT() {
+        return HEIGHT;
     }
 
 
-    @Override
-    public int getWidth() {
-        return width;
+    public int getWIDTH() {
+        return WIDTH;
     }
 
     public char[][] getBoard() {
-        return board;
+        return BOARD;
 
     }
 

@@ -1,7 +1,6 @@
 package players;
 
 import interfaces.Board;
-import interfaces.Player;
 import boards.Point;
 
 import java.util.Random;
@@ -16,8 +15,8 @@ public class PCPlayer {
     private final int width;
     public PCPlayer(Board board) {
         this.board = board;
-        hight = board.getHight();
-        width = board.getWidth();
+        hight = board.getHEIGHT();
+        width = board.getWIDTH();
     }
 
 
