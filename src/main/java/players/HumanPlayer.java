@@ -1,10 +1,8 @@
 package players;
 
+import board.Point;
 import interfaces.Board;
 import interfaces.Player;
-import boards.Point;
-
-import java.util.Scanner;
 
 /**
  * @author Bartlomiej Mroczek
