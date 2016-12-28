@@ -1,6 +1,6 @@
 package GUI;
 
-import boards.Point;
+import board.Point;
 import interfaces.Board;
 import players.HumanPlayer;
 

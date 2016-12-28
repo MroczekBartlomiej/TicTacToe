@@ -1,6 +1,6 @@
 package GUI;
 
-import boards.SmallBoard;
+import board.SmallBoard;
 import interfaces.Board;
 
 import java.util.Random;
@@ -58,9 +58,6 @@ public class GameInConsole {
             repeatChar = scanner.nextLine().charAt(0);
         }catch (StringIndexOutOfBoundsException exc){
         }
-        if (repeatChar == 'R')
-            return true;
-       else
-            return false;
+        return repeatChar == 'R';
     }
 }

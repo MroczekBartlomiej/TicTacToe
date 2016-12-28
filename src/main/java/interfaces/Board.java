@@ -1,9 +1,9 @@
 package interfaces;
 
-import java.util.List;
-
-import boards.Point;
+import board.Point;
 import players.PlayerSign;
+
+import java.util.List;
 
 /**
  * @author Bartlomiej Mroczek

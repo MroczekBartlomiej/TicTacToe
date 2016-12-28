@@ -1,6 +1,6 @@
 package interfaces;
 
-import boards.Point;
+import board.Point;
 
 /**
  * @author Bartlomiej Mroczek
