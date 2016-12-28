@@ -1,11 +1,11 @@
-package boards;
+package board;
 
 import interfaces.Board;
+import players.PlayerSign;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-
-import players.PlayerSign;
 
 /**
  * @author Bartlomiej Mroczek
@@ -15,6 +15,7 @@ public class SmallBoard implements Board {
     private final int WIDTH = 3;
     private static char BOARD[][];
     private List<Point> emptyPoints;
+
 
     public SmallBoard() {
         BOARD = new char[HEIGHT][WIDTH];
@@ -62,7 +63,6 @@ public class SmallBoard implements Board {
     }
 
 
-
     @Override
     public List<Point> getEmptyPoints() {
         emptyPoints = new ArrayList<>();
@@ -91,6 +91,11 @@ public class SmallBoard implements Board {
 
     public int getWIDTH() {
         return WIDTH;
+    }
+
+    @Override
+    public String toString() {
+        return Arrays.deepToString(BOARD);
     }
 
     public char[][] getBoard() {
