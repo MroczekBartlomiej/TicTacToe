@@ -1,12 +1,12 @@
-package board;
+package org.bmroczek.board;
 
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.assertj.core.api.Assertions;
+import org.bmroczek.players.PlayerSign;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import players.PlayerSign;
 
 import java.util.Arrays;
 import java.util.List;

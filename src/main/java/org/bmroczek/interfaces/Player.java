@@ -1,6 +1,7 @@
-package interfaces;
+package org.bmroczek.interfaces;
 
-import board.Point;
+
+import org.bmroczek.board.Point;
 
 /**
  * @author Bartlomiej Mroczek

@@ -1,4 +1,4 @@
-package players;
+package org.bmroczek.players;
 
 /**
  * @author Bartlomiej Mroczek

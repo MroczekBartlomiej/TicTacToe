@@ -1,8 +1,8 @@
-package players;
+package org.bmroczek.players;
 
-import board.Point;
-import board.SmallBoard;
 import org.assertj.core.api.Assertions;
+import org.bmroczek.board.Point;
+import org.bmroczek.board.SmallBoard;
 import org.junit.Before;
 import org.junit.Test;
 

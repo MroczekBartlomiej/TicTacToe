@@ -1,8 +1,9 @@
-package players;
+package org.bmroczek.players;
 
-import board.Point;
-import interfaces.Board;
-import interfaces.Player;
+
+import org.bmroczek.board.Point;
+import org.bmroczek.interfaces.Board;
+import org.bmroczek.interfaces.Player;
 
 /**
  * @author Bartlomiej Mroczek

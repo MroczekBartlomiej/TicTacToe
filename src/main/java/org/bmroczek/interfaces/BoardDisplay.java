@@ -1,4 +1,4 @@
-package interfaces;
+package org.bmroczek.interfaces;
 
 /**
  * @author Bartlomiej Mroczek

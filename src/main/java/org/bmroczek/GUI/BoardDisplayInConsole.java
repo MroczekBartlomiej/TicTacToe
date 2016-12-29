@@ -1,7 +1,8 @@
-package GUI;
+package org.bmroczek.GUI;
 
-import interfaces.Board;
-import interfaces.BoardDisplay;
+
+import org.bmroczek.interfaces.Board;
+import org.bmroczek.interfaces.BoardDisplay;
 
 /**
  * This class display game board in console

@@ -1,7 +1,9 @@
-package GUI;
+package org.bmroczek.GUI;
 
-import board.SmallBoard;
-import interfaces.Board;
+
+import org.bmroczek.board.SmallBoard;
+import org.bmroczek.interfaces.Board;
+import org.springframework.stereotype.Component;
 
 import java.util.Random;
 import java.util.Scanner;
@@ -9,6 +11,7 @@ import java.util.Scanner;
 /**
  * @author Bartlomiej Mroczek
  */
+@Component
 public class GameInConsole {
     private Board board;
 

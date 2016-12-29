@@ -1,7 +1,8 @@
-package players;
+package org.bmroczek.players;
 
-import board.Point;
-import interfaces.Board;
+
+import org.bmroczek.board.Point;
+import org.bmroczek.interfaces.Board;
 
 import java.util.Random;
 
