@@ -1,7 +1,8 @@
-package board;
+package org.bmroczek.board;
 
-import interfaces.Board;
-import players.PlayerSign;
+
+import org.bmroczek.interfaces.Board;
+import org.bmroczek.players.PlayerSign;
 
 import java.util.ArrayList;
 import java.util.Arrays;

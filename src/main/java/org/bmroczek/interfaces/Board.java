@@ -1,7 +1,7 @@
-package interfaces;
+package org.bmroczek.interfaces;
 
-import board.Point;
-import players.PlayerSign;
+import org.bmroczek.board.Point;
+import org.bmroczek.players.PlayerSign;
 
 import java.util.List;
 

@@ -1,8 +1,9 @@
-package GUI;
+package org.bmroczek.GUI;
 
-import board.Point;
-import interfaces.Board;
-import players.HumanPlayer;
+
+import org.bmroczek.board.Point;
+import org.bmroczek.interfaces.Board;
+import org.bmroczek.players.HumanPlayer;
 
 import java.util.Scanner;
 

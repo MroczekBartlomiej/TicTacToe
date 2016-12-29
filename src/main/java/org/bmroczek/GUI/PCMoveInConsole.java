@@ -1,12 +1,13 @@
-package GUI;
+package org.bmroczek.GUI;
 
-import interfaces.Board;
-import players.PCPlayer;
+
+import org.bmroczek.interfaces.Board;
+import org.bmroczek.players.PCPlayer;
 
 /**
  * @author Bartlomiej Mroczek
  */
-public class PCMoveInConsole extends PCPlayer{
+public class PCMoveInConsole extends PCPlayer {
 
     public PCMoveInConsole(Board board) {
         super(board);

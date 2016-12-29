@@ -1,4 +1,4 @@
-package board;
+package org.bmroczek.board;
 
 /**
  * @author Bartlomiej Mroczek
