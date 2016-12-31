@@ -3,6 +3,7 @@ package org.bmroczek.GUI;
 
 import org.bmroczek.board.SmallBoard;
 import org.bmroczek.interfaces.Board;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Random;
@@ -13,21 +14,19 @@ import java.util.Scanner;
  */
 @Component
 public class GameInConsole {
+
+    @Autowired
     private Board board;
+    @Autowired
+    private BoardDisplayInConsole boardInConsole;
+    @Autowired
+    private UserMoveInConsole userMove;
+    @Autowired
+    private PCMoveInConsole pcPlayer;
 
-    public GameInConsole(){
-        initialBoard();
-    }
-
-    private void initialBoard(){
-        board = new SmallBoard();
-    }
 
     public void game() {
 
-        BoardDisplayInConsole boardInConsole = new BoardDisplayInConsole(board);
-        UserMoveInConsole userMove = new UserMoveInConsole(board);
-        PCMoveInConsole pcPlayer = new PCMoveInConsole(board);
         Random lottery = new Random();
 
         do {

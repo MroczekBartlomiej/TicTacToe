@@ -4,10 +4,12 @@ package org.bmroczek.players;
 import org.bmroczek.board.Point;
 import org.bmroczek.interfaces.Board;
 import org.bmroczek.interfaces.Player;
+import org.springframework.stereotype.Component;
 
 /**
  * @author Bartlomiej Mroczek
  */
+@Component
 public class HumanPlayer implements Player {
     private final Board board;
     private final PlayerSign user = PlayerSign.HUMAN;
