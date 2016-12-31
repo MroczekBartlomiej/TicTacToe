@@ -3,13 +3,17 @@ package org.bmroczek.GUI;
 
 import org.bmroczek.interfaces.Board;
 import org.bmroczek.interfaces.BoardDisplay;
+import org.springframework.stereotype.Component;
 
 /**
  * This class display game board in console
  * @author Bartlomiej Mroczek
  */
+@Component
 public class BoardDisplayInConsole implements BoardDisplay {
+
     private Board board;
+
     private int height;
     private int width;
 

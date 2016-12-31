@@ -1,8 +1,8 @@
 package org.bmroczek.board;
 
-
 import org.bmroczek.interfaces.Board;
 import org.bmroczek.players.PlayerSign;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,12 +11,13 @@ import java.util.List;
 /**
  * @author Bartlomiej Mroczek
  */
+@Component
 public class SmallBoard implements Board {
+
     private final int HEIGHT = 3;
     private final int WIDTH = 3;
     private static char BOARD[][];
     private List<Point> emptyPoints;
-
 
     public SmallBoard() {
         BOARD = new char[HEIGHT][WIDTH];
