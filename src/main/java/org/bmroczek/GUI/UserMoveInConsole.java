@@ -14,12 +14,13 @@ import java.util.Scanner;
 @Component
 public class UserMoveInConsole {
 
-    @Autowired
-    private HumanPlayer humanPlayer;
+    private final HumanPlayer humanPlayer;
     private Board board;
 
-    public UserMoveInConsole(Board board) {
+    @Autowired
+    public UserMoveInConsole(Board board, HumanPlayer humanPlayer) {
         this.board = board;
+        this.humanPlayer = humanPlayer;
     }
 
     public void userMoveInConsole() {
@@ -29,8 +30,7 @@ public class UserMoveInConsole {
         boolean repeat;
         do {
             System.out.println("Your move: (enter coordinates e.g 0 0, 2 2, 2 1)");
-            //TODO: Remove "new Point(...)"
-            point = new Point(scanner.nextInt(), scanner.nextInt());
+            point = Point.builder().x(scanner.nextInt()).y(scanner.nextInt()).build();
             if (humanPlayer.move(point)) {
                 repeat = false;
             } else {
