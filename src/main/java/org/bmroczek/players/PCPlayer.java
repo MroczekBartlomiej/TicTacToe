@@ -33,6 +33,7 @@ public class PCPlayer {
         Random random = new Random();
         Point point;
         do {
+            //TODO: Remove "new Point(...)"
             point = new Point(random.nextInt(height), random.nextInt(width));
         }while (!move(point));
 

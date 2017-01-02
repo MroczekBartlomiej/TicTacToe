@@ -29,6 +29,7 @@ public class UserMoveInConsole {
         boolean repeat;
         do {
             System.out.println("Your move: (enter coordinates e.g 0 0, 2 2, 2 1)");
+            //TODO: Remove "new Point(...)"
             point = new Point(scanner.nextInt(), scanner.nextInt());
             if (humanPlayer.move(point)) {
                 repeat = false;
