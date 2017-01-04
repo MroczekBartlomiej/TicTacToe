@@ -29,7 +29,7 @@ public class PCPlayerTest extends Assertions {
     public void randomPoint() {
 
         PCPlayer pcPlayer = new PCPlayer(SMALL_BOARD);
-        pcPlayer.randomPoint();
+        pcPlayer.move();
         List<Point> emptyPoints = SMALL_BOARD.getEmptyPoints();
         assertThat(emptyPoints).hasSize((height * width) - 1);
     }

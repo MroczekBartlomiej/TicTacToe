@@ -1,6 +1,6 @@
 package org.bmroczek.board;
 
-import org.bmroczek.interfaces.Board;
+import org.bmroczek.model.CriteriaForCheckingWinner;
 import org.bmroczek.players.PlayerSign;
 import org.springframework.stereotype.Component;
 
@@ -12,15 +12,16 @@ import java.util.List;
  * @author Bartlomiej Mroczek
  */
 @Component
-public class SmallBoard implements Board {
+public class SmallBoard {
 
+    private static char BOARD[][];
     private final int HEIGHT = 3;
     private final int WIDTH = 3;
-    private static char BOARD[][];
     private List<Point> emptyPoints;
 
     public SmallBoard() {
         BOARD = new char[HEIGHT][WIDTH];
+
         for (int i = 0; i < HEIGHT; i++) {
             for (int j = 0; j < WIDTH; j++) {
                 BOARD[i][j] = '-';
@@ -33,41 +34,80 @@ public class SmallBoard implements Board {
     }
 
     public boolean isGameOver() {
-        return (hasXWon() || hasOWon() || getEmptyPoints().isEmpty());
+        return (checkWinner(PlayerSign.COMPUTER) || checkWinner(PlayerSign.HUMAN) || getEmptyPoints().isEmpty());
     }
 
-    public boolean hasXWon() {
-        if ((BOARD[0][0] == BOARD[1][1] && BOARD[0][0] == BOARD[2][2] && BOARD[0][0] == 'X') ||
-                (BOARD[0][2] == BOARD[1][1] && BOARD[0][2] == BOARD[2][0] && BOARD[0][2] == 'X')) {
-            return true;
+    public boolean checkWinner(PlayerSign playerSign) {
+        return (checkDiagonally(playerSign) || checkVertically(playerSign) || checkHorizontally(playerSign));
+    }
+
+    private boolean checkDiagonally(PlayerSign playerSign) {
+        CriteriaForCheckingWinner fromLeftTopToRightBottom = CriteriaForCheckingWinner.builder()
+                .startElement(0).step(HEIGHT + 1).playerSign(playerSign).build();
+
+        CriteriaForCheckingWinner fromRightTopToLeftBottom = CriteriaForCheckingWinner.builder()
+                .startElement(2).step(HEIGHT - 1).playerSign(playerSign).build();
+
+        return (checkBoardAccordingToCriteria(fromRightTopToLeftBottom)
+                || checkBoardAccordingToCriteria(fromLeftTopToRightBottom));
+    }
+
+    private boolean checkVertically(PlayerSign playerSign) {
+        int step = HEIGHT;
+        boolean b = false;
+        int startPosition = 0;
+        int maxStartPosition = 2;
+        while (!b && startPosition <= maxStartPosition) {
+            CriteriaForCheckingWinner criteriaForCheckingWinner = CriteriaForCheckingWinner.builder().
+                    startElement(startPosition).step(step).playerSign(playerSign).build();
+            b = checkBoardAccordingToCriteria(criteriaForCheckingWinner);
+            startPosition++;
         }
-        for (int i = 0; i < 3; ++i) {
-            if (((BOARD[i][0] == BOARD[i][1] && BOARD[i][0] == BOARD[i][2] && BOARD[i][0] == 'X')
-                    || (BOARD[0][i] == BOARD[1][i] && BOARD[0][i] == BOARD[2][i] && BOARD[0][i] == 'X'))) {
-                return true;
+        return b;
+    }
+
+    private boolean checkHorizontally(PlayerSign playerSign) {
+        int step = 1;
+        boolean b;
+        int startPosition = 0;
+        int maxStartPosition = WIDTH * HEIGHT - WIDTH;
+        do {
+            CriteriaForCheckingWinner criteriaForCheckingWinner = CriteriaForCheckingWinner.builder()
+                    .startElement(startPosition).step(step).playerSign(playerSign).build();
+            b = checkBoardAccordingToCriteria(criteriaForCheckingWinner);
+            startPosition += WIDTH;
+        } while (!b && startPosition <= maxStartPosition);
+        return b;
+    }
+
+    private boolean checkBoardAccordingToCriteria(CriteriaForCheckingWinner criteriaForCheckingWinner) {
+        List<Character> boardAsList = getBoardAsList();
+        Character tempCharacter = '-';
+        int startElement = criteriaForCheckingWinner.getStartElement();
+        int step = criteriaForCheckingWinner.getStep();
+        char sign = criteriaForCheckingWinner.getPlayerSign().getSign();
+
+        for (int i = 0; i < HEIGHT; i++) {
+            if (tempCharacter != '-' && tempCharacter != boardAsList.get(startElement)) {
+                return false;
+            } else if (sign == tempCharacter) {
+                if (tempCharacter == boardAsList.get(startElement)) {
+                    if ((startElement + step <= boardAsList.size())
+                            && tempCharacter == boardAsList.get(startElement + step)) {
+                        return true;
+                    }
+                }
+                return false;
             }
+            tempCharacter = boardAsList.get(criteriaForCheckingWinner.getStartElement());
+            startElement += criteriaForCheckingWinner.getStep();
         }
         return false;
     }
 
-    public boolean hasOWon() {
-        if ((BOARD[0][0] == BOARD[1][1] && BOARD[0][0] == BOARD[2][2] && BOARD[0][0] == 'O') ||
-                (BOARD[0][2] == BOARD[1][1] && BOARD[0][2] == BOARD[2][0] && BOARD[0][2] == 'O')) {
-            return true;
-        }
-        for (int i = 0; i < 3; ++i) {
-            if ((BOARD[i][0] == BOARD[i][1] && BOARD[i][0] == BOARD[i][2] && BOARD[i][0] == 'O')
-                    || (BOARD[0][i] == BOARD[1][i] && BOARD[0][i] == BOARD[2][i] && BOARD[0][i] == 'O')) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-
-    @Override
     public List<Point> getEmptyPoints() {
         emptyPoints = new ArrayList<>();
+
         for (int i = 0; i < HEIGHT; i++) {
             for (int j = 0; j < WIDTH; j++) {
                 if (BOARD[i][j] == '-') {
@@ -90,19 +130,26 @@ public class SmallBoard implements Board {
         return HEIGHT;
     }
 
-
     public int getWIDTH() {
         return WIDTH;
     }
 
-    @Override
     public String toString() {
         return Arrays.deepToString(BOARD);
     }
 
     public char[][] getBoard() {
         return BOARD;
-
     }
 
+    public List<Character> getBoardAsList() {
+        List<Character> boardAsList = new ArrayList<>();
+
+        for (int i = 0; i < HEIGHT; i++) {
+            for (int j = 0; j < WIDTH; j++) {
+                boardAsList.add(BOARD[i][j]);
+            }
+        }
+        return boardAsList;
+    }
 }

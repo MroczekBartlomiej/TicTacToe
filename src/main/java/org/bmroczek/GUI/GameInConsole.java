@@ -2,7 +2,7 @@ package org.bmroczek.GUI;
 
 
 import org.bmroczek.board.SmallBoard;
-import org.bmroczek.interfaces.Board;
+import org.bmroczek.players.PlayerSign;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +16,7 @@ import java.util.Scanner;
 public class GameInConsole {
 
     @Autowired
-    private Board board;
+    private SmallBoard board;
     @Autowired
     private BoardDisplayInConsole boardInConsole;
     @Autowired
@@ -26,7 +26,6 @@ public class GameInConsole {
 
 
     public void game() {
-
         Random lottery = new Random();
 
         do {
@@ -44,9 +43,9 @@ public class GameInConsole {
             }
             if (board.getEmptyPoints().isEmpty()){
                 System.out.println("DRAW!");
-            }else if (board.hasOWon()){
+            } else if (board.checkWinner(PlayerSign.HUMAN)) {
                 System.out.println("Unfortunately you LOST!");
-            }else if (board.hasXWon()){
+            } else if (board.checkWinner(PlayerSign.COMPUTER)) {
                 System.out.println("Congratulation, you WIN!");
             }
         } while (repeatLoop());
