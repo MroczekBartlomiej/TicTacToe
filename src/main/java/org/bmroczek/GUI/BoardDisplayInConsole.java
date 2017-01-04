@@ -1,8 +1,6 @@
 package org.bmroczek.GUI;
 
-
-import org.bmroczek.interfaces.Board;
-import org.bmroczek.interfaces.BoardDisplay;
+import org.bmroczek.board.SmallBoard;
 import org.springframework.stereotype.Component;
 
 /**
@@ -10,20 +8,19 @@ import org.springframework.stereotype.Component;
  * @author Bartlomiej Mroczek
  */
 @Component
-public class BoardDisplayInConsole implements BoardDisplay {
+public class BoardDisplayInConsole {
 
-    private Board board;
+    private SmallBoard board;
 
     private int height;
     private int width;
 
-    public BoardDisplayInConsole(Board board) {
+    public BoardDisplayInConsole(SmallBoard board) {
         this.board = board;
         height = board.getHEIGHT();
         width = board.getWIDTH();
     }
 
-    @Override
     public void displayBoard() {
         char boardToDisplay[][] = board.getBoard();
         for (int i = 0; i < height; i++) {

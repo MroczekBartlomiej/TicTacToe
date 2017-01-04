@@ -19,17 +19,15 @@ import static junitparams.JUnitParamsRunner.$;
 @RunWith(JUnitParamsRunner.class)
 public class SmallBoardTest extends Assertions {
 
-    private SmallBoard SMALL_BOARD;
-    private int height;
-    private int width;
     private final char PLAYER_o_COMPUTER = PlayerSign.COMPUTER.getSign();
     private final char EMPTY_BOARD_SIGN = '-';
     private final Point POINT = new Point(1, 1);
-
+    private SmallBoard SMALL_BOARD;
+    private int height;
+    private int width;
 
     @Before
     public void setup() {
-
         SMALL_BOARD = new SmallBoard();
         height = SMALL_BOARD.getHEIGHT();
         width = SMALL_BOARD.getWIDTH();
@@ -37,7 +35,6 @@ public class SmallBoardTest extends Assertions {
 
     @Test
     public void moveShouldBeExecutedWhenBoardIsEmpty() {
-
         SMALL_BOARD.executeMove(PlayerSign.COMPUTER, POINT);
         char[][] board = SMALL_BOARD.getBoard();
         assertThat(board).contains(new char[]{EMPTY_BOARD_SIGN, PLAYER_o_COMPUTER, EMPTY_BOARD_SIGN});
@@ -45,7 +42,6 @@ public class SmallBoardTest extends Assertions {
 
     @Test
     public void moveShouldNotBeExecutedTwiceTimeInTheSamePoint() {
-
         SMALL_BOARD.executeMove(PlayerSign.COMPUTER, POINT);
         boolean result = SMALL_BOARD.executeMove(PlayerSign.COMPUTER, POINT);
         assertThat(result).isFalse();
@@ -53,7 +49,6 @@ public class SmallBoardTest extends Assertions {
 
     @Test
     public void allPointsInBoardShouldBeEmptyBeforeGameStart() {
-
         List<Point> emptyPoints = SMALL_BOARD.getEmptyPoints();
         assertThat(emptyPoints).hasSize(height * width);
     }
@@ -61,43 +56,38 @@ public class SmallBoardTest extends Assertions {
     @Test
     @Parameters(method = "parametersForWinMove")
     public void computerPlayerShouldWinWhenBoardContainsThreeOInOneLine(List<Point> points) {
-
         points.forEach(point -> SMALL_BOARD.executeMove(PlayerSign.COMPUTER, point));
-        boolean result = SMALL_BOARD.hasOWon();
+        boolean result = SMALL_BOARD.checkWinner(PlayerSign.COMPUTER);
         assertThat(result).isTrue();
     }
 
     @Test
     @Parameters(method = "parametersForNotWinMove")
     public void computerPlayerShouldNotWinWhenBoardContainsThreeOInNotOneLine(List<Point> points) {
-
         points.forEach(point -> SMALL_BOARD.executeMove(PlayerSign.COMPUTER, point));
-        boolean result = SMALL_BOARD.hasOWon();
+        boolean result = SMALL_BOARD.checkWinner(PlayerSign.COMPUTER);
         assertThat(result).isFalse();
     }
 
     @Test
     @Parameters(method = "parametersForNotWinMove")
     public void humanPlayerShouldNotWinWhenBoardContainsThreeXInNotOneLine(List<Point> points) {
-
         points.forEach(point -> SMALL_BOARD.executeMove(PlayerSign.HUMAN, point));
-        boolean result = SMALL_BOARD.hasXWon();
+        boolean result = SMALL_BOARD.checkWinner(PlayerSign.HUMAN);
         assertThat(result).isFalse();
     }
 
     @Test
     @Parameters(method = "parametersForWinMove")
     public void humanPlayerShouldWinWhenBoardContainsThreeXInOneLine(List<Point> points) {
-
         points.forEach(point -> SMALL_BOARD.executeMove(PlayerSign.HUMAN, point));
-        boolean result = SMALL_BOARD.hasXWon();
+        boolean result = SMALL_BOARD.checkWinner(PlayerSign.HUMAN);
         assertThat(result).isTrue();
     }
 
     @Test
     @Parameters(method = "movesForOneWin")
     public void gameShouldBeOverWhenOnePlayerWin(List<Point> points) {
-
         points.forEach(point -> SMALL_BOARD.executeMove(PlayerSign.HUMAN, point));
         boolean result = SMALL_BOARD.isGameOver();
         assertThat(result).isTrue();
@@ -105,7 +95,6 @@ public class SmallBoardTest extends Assertions {
 
     @Test
     public void gameShouldBeOverWhenBoardIsFull() {
-
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 SMALL_BOARD.executeMove(PlayerSign.COMPUTER, new Point(i, j));
@@ -116,7 +105,6 @@ public class SmallBoardTest extends Assertions {
     }
 
     private Object[] parametersForNotWinMove() {
-
         return $(
                 $(Arrays.asList(new Point(0, 0), new Point(1, 1), new Point(1, 2))),
                 $(Arrays.asList(new Point(0, 0), new Point(2, 1), new Point(2, 2))),
@@ -125,7 +113,6 @@ public class SmallBoardTest extends Assertions {
     }
 
     private Object[] parametersForWinMove() {
-
         return $(
                 $(Arrays.asList(new Point(0, 0), new Point(1, 1), new Point(2, 2))),
                 $(Arrays.asList(new Point(0, 0), new Point(1, 0), new Point(2, 0))),
@@ -134,10 +121,14 @@ public class SmallBoardTest extends Assertions {
     }
 
     private Object[] movesForOneWin() {
-
         return $(
-                $(Arrays.asList(new Point(0, 0), new Point(1, 1), new Point(2, 2)))
+                $(Arrays.asList(new Point(0, 0), new Point(0, 1), new Point(0, 2)))
         );
     }
 
+    private Object[] movesForOneFails() {
+        return $(
+                $(Arrays.asList(new Point(0, 0), new Point(1, 1), new Point(1, 2)))
+        );
+    }
 }

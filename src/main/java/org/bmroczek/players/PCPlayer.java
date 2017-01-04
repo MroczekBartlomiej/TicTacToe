@@ -2,9 +2,10 @@ package org.bmroczek.players;
 
 
 import org.bmroczek.board.Point;
-import org.bmroczek.interfaces.Board;
+import org.bmroczek.board.SmallBoard;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -13,28 +14,21 @@ import java.util.Random;
 @Component
 public class PCPlayer {
 
-    private final Board board;
+    private final SmallBoard board;
     private final PlayerSign USER = PlayerSign.COMPUTER;
-    private final int height;
-    private final int width;
 
-    public PCPlayer(Board board) {
+    public PCPlayer(SmallBoard board) {
         this.board = board;
-        height = board.getHEIGHT();
-        width = board.getWIDTH();
     }
 
-
-    public boolean move(Point point) {
-        return board.executeMove(USER, point);
+    public boolean move() {
+        return board.executeMove(USER, randomPoint());
     }
 
-    public void randomPoint(){
+    private Point randomPoint() {
         Random random = new Random();
-        Point point;
-        do {
-            point = Point.builder().x(random.nextInt(height)).y(random.nextInt(width)).build();
-        }while (!move(point));
-
+        List<Point> emptyPoints = board.getEmptyPoints();
+        int numberOfEmptyPoints = emptyPoints.size();
+        return emptyPoints.get(random.nextInt(numberOfEmptyPoints));
     }
 }
